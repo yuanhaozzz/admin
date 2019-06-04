@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
+import './Index'
+
 class Login extends Component {
 	render() {
 		return (
-            <div>
+            <div className="login">
                 login
             </div>
 		);
