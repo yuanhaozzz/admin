@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 
-import './list'
+import './List'
 
 class List extends Component {
     render () {

@@ -1,23 +1,28 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
 
 import { PRIMAYR } from './router/index'
 
-
-export default function () {
+import './App.css'
+export default function (props) {
+	let { match } = props
 	return (
 		<Router>
 			<Switch>
-			{
-				PRIMAYR.map(item => {
-					return (
-						<Route path={ item.path } exact component={ item.component }></Route>
-					)
-				})
-			}
+				{
+					PRIMAYR.map(route => {
+						return (
+							<Route key={route.path} path={route.path} render={(props) => {
+								console.log(props)
+								if (props.match.path === '/') {
+									return <Redirect to="/login"></Redirect>
+								}
+								return <route.component exact={ route.exact } {...props} route={route.children} />
+							}}></Route>
+						)
+					})
+				}
 			</Switch>
-
-			
 		</Router >
 	)
 }
