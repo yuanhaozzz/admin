@@ -15,33 +15,18 @@ import Dashboard from '../dashboard/Dashboard'
 
 import './layout.css'
 class Layout extends Component {
+    // eslint-disable-next-line no-useless-constructor
     constructor(props) {
         super(props)
     }
     render() {
-        const { match, route } = this.props
         return (
             <div className="layout">
                 <Aside { ...this.props }></Aside>
-                <main className="layout-main">
+                <main className="main">
                     <Header></Header>
-                    <Content></Content>
+                    <Content { ...this.props }></Content>
                 </main>
-
-
-                {/* <div className="layout-content">
-                    <div className="layout-content-sidebar">
-                    <Link to="/root/">首页</Link>
-                    <Link to="/root/dashboard">列表</Link>
-                    </div>
-
-                    <div className="layout-content-main">
-                    <Route exact path="/root/" component={Dashboard} />
-                    <Route path="/root/dashboard/" component={Article} />
-                    </div>
-                </div> */}
-
-
             </div>
         )
     }

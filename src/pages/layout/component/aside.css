@@ -1,8 +1,12 @@
 .aside{
-    min-width: 200px;
+    width: 200px;
     height: 100%;
-    padding-top: 65px;
-    background-color: #686c7c;
+    transition: all 0.5s;
+}
+
+.show-aside{
+    width: 100px;
+    transition: all 0.5s;
 }
 
 .ant-menu{
@@ -16,5 +20,14 @@
 
 .ant-menu-dark{
     background: #686c7c !important;
+}
+.aside-logo{
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #7571f9;
+    color: #fff;
+    font-size: 26px;
 }
 

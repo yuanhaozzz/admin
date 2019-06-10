@@ -10,34 +10,54 @@ export const PRIMAYR = [
         component: asyncComponent(() => import('../pages/layout/Layout')),
         children: [
             {
-                path: '/dashboard',
-                exact: true,
-                meta: {
-                    title: '首页'
-                },
-                component: asyncComponent(() => import('../pages/dashboard/Dashboard')),
+                menuName: '首页',
+                icon: 'home',
+                children: [
+                    {
+                        path: '/root',
+                        exact: true,
+                        name: "dashboard",
+                        meta: {
+                            title: '首页'
+                        },
+                        component: asyncComponent(() => import('../pages/dashboard/Dashboard')),
+                    }
+                ]
+
             },
             {
-                path: '/content/article',
-                meta: {
-                    title: '文章列表'
-                },
-                component: asyncComponent(() => import('../pages/content/article/List')),
-            },
-            {
-                path: '/content/article/add',
-                meta: {
-                    title: '文章新增'
-                },
-                component: asyncComponent(() => import('../pages/layout/Layout')),
-            },
-            {
-                path: '/content/article/edit',
-                meta: {
-                    title: '文章编辑'
-                },
-                component: asyncComponent(() => import('../pages/layout/Layout')),
-            },
+                menuName: '文章相关',
+                icon: 'form',
+                children: [
+                    {
+                        path: '/root/article',
+                        meta: {
+                            title: '文章列表'
+                        },
+                        name: 'articleList',
+                        component: asyncComponent(() => import('../pages/content/article/List')),
+                    },
+                    {
+                        path: '/root/article/add',
+                        meta: {
+                            title: '文章新增'
+                        },
+                        hide: true,
+                        name: 'articleAdd',
+                        component: asyncComponent(() => import('../pages/layout/Layout')),
+                    },
+                    {
+                        path: '/root/article/edit',
+                        meta: {
+                            title: '文章编辑'
+                        },
+                        hide: true,
+                        name: 'articleEdit',
+                        component: asyncComponent(() => import('../pages/layout/Layout')),
+                    }
+                ]
+            }
+
         ]
     },
     {
@@ -48,6 +68,13 @@ export const PRIMAYR = [
         component: asyncComponent(() => import('../pages/login/Login')),
     },
     {
+        path: '/404',
+        meta: {
+            title: '错误'
+        },
+        component: asyncComponent(() => import('../pages/404/404')),
+    },
+    {
         path: '/',
         exact: true,
         meta: {
@@ -55,5 +82,5 @@ export const PRIMAYR = [
         },
         component: asyncComponent(() => import('../pages/login/Login')),
     },
-    
+
 ]

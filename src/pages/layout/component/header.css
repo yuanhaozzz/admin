@@ -1,4 +1,29 @@
-.layout-header{
+.header{
     height: 65px;
-    background-color: #686c7c;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 50px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.header .anticon-menu{
+    cursor: pointer;
+}
+
+
+.header-right{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 140px;
+}
+.add-pointer{
+    cursor: pointer;
+}
+
+.header-right img, .header-right i{
+    cursor: pointer;
 }

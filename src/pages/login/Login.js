@@ -21,6 +21,7 @@ class Login extends Component {
 					message.error('账号密码错误，请重新输入！');
 					return
 				}
+				localStorage.setItem('login', JSON.stringify(true))
 				this.setState({
 					isLogin: true
 				})

@@ -8,6 +8,36 @@ const { SubMenu } = Menu;
 
 
 class Aside extends Component {
+    // eslint-disable-next-line no-useless-constructor
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        let { route } = this.props
+        console.log(route)
+        return (
+            <aside className="aside">
+                <LogoComponent></LogoComponent>
+                <MenuComponent {...this.props}></MenuComponent>
+            </aside>
+        )
+    }
+}
+export default Aside
+
+
+
+function LogoComponent() {
+    return (
+        <div className="aside-logo">
+            <p>Welcome</p>
+        </div>
+    )
+}
+
+class MenuComponent extends Component {
+    // eslint-disable-next-line no-useless-constructor
     constructor(props) {
         super(props)
     }
@@ -30,76 +60,55 @@ class Aside extends Component {
     };
 
     render() {
-        let { match, route } = this.props
-        console.log(route)
+        let { route } = this.props
+        console.log(this.props, '1111111111111')
         return (
-            <aside className="aside">
-                <Menu
-                    mode="inline"
-                    theme="dark"
-                    openKeys={this.state.openKeys}
-                    onOpenChange={this.onOpenChange}
-                    style={{ width: 256 }}
-                >
-                    <SubMenu
-                        key="sub1"
-                        title={
-                            <span>
-                                <Icon type="mail" />
-                                <span>Navigation One</span>
-                            </span>
+            <Menu
+                mode="inline"
+                theme="light"
+                defaultSelectedKeys={['首页']}
+                openKeys={this.state.openKeys}
+                onOpenChange={this.onOpenChange}
+            >
+                {
+                    route.map(routes => {
+                        if (routes.children.length === 1) {
+                            return (
+                                <Menu.Item key={routes.menuName}>
+                                    <NavLink to={routes.children[0].path}>
+                                        <Icon type={routes.icon} />
+                                        <span>{routes.children[0].meta.title}</span>
+                                    </NavLink>
+                                </Menu.Item>
+                            )
+                        } else {
+                            return (
+                                <SubMenu
+                                    key={routes.menuName}
+                                    title={
+                                        <span>
+                                            <Icon type={routes.icon} />
+                                            <span>{routes.menuName}</span>
+                                        </span>
+                                    }
+                                >
+                                    {
+                                        routes.children.map(children => {
+                                            if (!children.hide) {
+                                                return (
+                                                    <Menu.Item key={children.name}>
+                                                        <NavLink to={children.path}>{children.meta.title}</NavLink>
+                                                    </Menu.Item>
+                                                )
+                                            }
+                                        })
+                                    }
+                                </SubMenu>
+                            )
                         }
-                    >
-                        <Menu.Item key="1">Option 1</Menu.Item>
-                        <Menu.Item key="2">Option 2</Menu.Item>
-                        <Menu.Item key="3">Option 3</Menu.Item>
-                        <Menu.Item key="4">Option 4</Menu.Item>
-                    </SubMenu>
-                    <SubMenu
-                        key="sub2"
-                        title={
-                            <span>
-                                <Icon type="appstore" />
-                                <span>Navigation Two</span>
-                            </span>
-                        }
-                    >
-                        <Menu.Item key="5">Option 5</Menu.Item>
-                        <Menu.Item key="6">Option 6</Menu.Item>
-                        <SubMenu key="sub3" title="Submenu">
-                            <Menu.Item key="7">Option 7</Menu.Item>
-                            <Menu.Item key="8">Option 8</Menu.Item>
-                        </SubMenu>
-                    </SubMenu>
-                    <SubMenu
-                        key="sub4"
-                        title={
-                            <span>
-                                <Icon type="setting" />
-                                <span>Navigation Three</span>
-                            </span>
-                        }
-                    >
-                        <Menu.Item key="9">Option 9</Menu.Item>
-                        <Menu.Item key="10">Option 10</Menu.Item>
-                        <Menu.Item key="11">Option 11</Menu.Item>
-                        <Menu.Item key="12">Option 12</Menu.Item>
-                    </SubMenu>
-                </Menu>
-            </aside>
+                    })
+                }
+            </Menu>
         )
     }
 }
-export default Aside
-
-// {
-//     route.map(route => {
-//         return (
-//             <div key={route.path}>
-//                 {/* <NavLink to={`${match.url}${route.path}`}>{route.meta.title}</NavLink>
-//             {`${match.url}${route.path}`} */}
-//                 <br />
-//             </div>
-//         )
-//     })
-// }

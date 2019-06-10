@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
 
 import { PRIMAYR } from './router/index'
+import Guard from './router/Guard'
 
 import './App.css'
 export default function (props) {
@@ -13,12 +14,11 @@ export default function (props) {
 					PRIMAYR.map(route => {
 						return (
 							<Route key={route.path} path={route.path} render={(props) => {
-								console.log(props)
-								if (props.match.path === '/') {
-									return <Redirect to="/login"></Redirect>
-								}
-								return <route.component exact={ route.exact } {...props} route={route.children} />
+								return <Guard {...props} route={route.children}></Guard>
 							}}></Route>
+							// <Route key={route.path} path={route.path} render={(props) => {
+							// 	return <route.component exact={ route.exact } {...props} route={route.children} />
+							// }}></Route>
 						)
 					})
 				}
