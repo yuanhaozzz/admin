@@ -3,9 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Sotre from './redux/store'
+import { Provider } from 'react-redux'
 
 ReactDOM.render(
-<App />,
+<Provider store={Sotre}>
+    <App />
+</Provider>
+,
 document.getElementById('root')
 );
 

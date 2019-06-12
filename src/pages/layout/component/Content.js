@@ -17,7 +17,7 @@ function Content (props) {
         })
 
         return routes.map(item => {
-            return <Route key={item.name} path={item.path} exact={item.exact} component={item.component} ></Route>
+            return <Route key={item.name} path={item.path} exact={item.exact ? true : false} component={item.component} ></Route>
         })
     }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Menu, Icon } from 'antd';
 import { Link, Route, NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import './aside.css'
 
@@ -14,24 +15,34 @@ class Aside extends Component {
     }
 
     render() {
-        let { route } = this.props
-        console.log(route)
+        let { status } = this.props
         return (
-            <aside className="aside">
-                <LogoComponent></LogoComponent>
+            <aside className={`aside ${status ? 'show-aside' : ''}`}>
+                <LogoComponent {...this.props}></LogoComponent>
                 <MenuComponent {...this.props}></MenuComponent>
             </aside>
         )
     }
 }
-export default Aside
+
+let mapStateToProps = state => {
+    let { layout } = state
+    return {
+        status: layout.status
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(Aside)
 
 
 
-function LogoComponent() {
+function LogoComponent(props) {
+    let { status } = props
     return (
         <div className="aside-logo">
-            <p>Welcome</p>
+            <p className={status ? 'aside-hidden' : ''}>Welcome</p>
         </div>
     )
 }
@@ -60,8 +71,7 @@ class MenuComponent extends Component {
     };
 
     render() {
-        let { route } = this.props
-        console.log(this.props, '1111111111111')
+        let { route, status } = this.props
         return (
             <Menu
                 mode="inline"
@@ -77,7 +87,7 @@ class MenuComponent extends Component {
                                 <Menu.Item key={routes.menuName}>
                                     <NavLink to={routes.children[0].path}>
                                         <Icon type={routes.icon} />
-                                        <span>{routes.children[0].meta.title}</span>
+                                        <span className={status ? 'aside-hidden' : ''}>{routes.children[0].meta.title}</span>
                                     </NavLink>
                                 </Menu.Item>
                             )
@@ -88,7 +98,7 @@ class MenuComponent extends Component {
                                     title={
                                         <span>
                                             <Icon type={routes.icon} />
-                                            <span>{routes.menuName}</span>
+                                            <span className={status ? 'aside-hidden' : ''}>{routes.menuName}</span>
                                         </span>
                                     }
                                 >
@@ -96,7 +106,7 @@ class MenuComponent extends Component {
                                         routes.children.map(children => {
                                             if (!children.hide) {
                                                 return (
-                                                    <Menu.Item key={children.name}>
+                                                    <Menu.Item key={children.name} className={status ? 'aside-hidden' : ''}>
                                                         <NavLink to={children.path}>{children.meta.title}</NavLink>
                                                     </Menu.Item>
                                                 )

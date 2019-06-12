@@ -1,17 +1,11 @@
 
 import React, { Component } from 'react'
-import { Route, NavLink, Link, Switch } from 'react-router-dom'
-import { Button } from 'antd';
-
-
-import { SECONDARY } from '../../router/index'
+import { connect } from 'react-redux'
+import { getUserInfo } from '../../redux/actions'
 
 import Header from './component/Header'
 import Aside from './component/Aside'
 import Content from './component/Content'
-import Article from '../content/article/List'
-
-import Dashboard from '../dashboard/Dashboard'
 
 import './layout.css'
 class Layout extends Component {
@@ -19,6 +13,11 @@ class Layout extends Component {
     constructor(props) {
         super(props)
     }
+
+    componentDidMount () {
+        this.props.getUserInfo(2)
+    }
+
     render() {
         return (
             <div className="layout">
@@ -32,4 +31,11 @@ class Layout extends Component {
     }
 }
 
-export default Layout
+let mapStateToProps = state => {
+    return state.login
+}
+
+export default connect(
+    mapStateToProps,
+    { getUserInfo }
+)(Layout)

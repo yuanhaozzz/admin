@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Icon, Avatar, Badge } from 'antd'
+import { connect } from 'react-redux'
 
+import { handleHeaderButton } from '../../../redux/actions'
 import './header.css'
 
 class Header extends Component {
@@ -16,47 +18,8 @@ class Header extends Component {
      * 点击头部伸缩按钮时，调整菜单栏宽度 及 展示元素
      */
     handleMenu = e => {
-        let isMenuShow = 'hidden'
-        let antMenuItem = this.getElement('.ant-menu-item')
-        let antMenuSubmenu = this.getElement('.ant-menu-submenu-title span span')
-        let antMenuSubmenuArrow = this.getElement('.ant-menu-submenu-arrow')
-        let asideLogo = this.getElement('.aside-logo p')
-        let aside = document.querySelector('.aside')
-
-        this.setState({
-            menuShowStatus: !this.state.menuShowStatus
-        })
-        // 判断 菜单仅展示图标
-        if (this.state.menuShowStatus) {
-            isMenuShow = 'visible'
-            aside.classList.remove('show-aside')
-        } else {
-            aside.classList.add('show-aside')
-
-        }
-
-        this.mapElement(antMenuSubmenu, isMenuShow)
-        this.mapElement(antMenuItem, isMenuShow)
-        this.mapElement(antMenuSubmenuArrow, isMenuShow)
-        this.mapElement(asideLogo, isMenuShow)
-    }
-
-    /**
-     * 获取元素
-     * @params className  传递类名
-     */
-    getElement = className => {
-
-        return Array.from(document.querySelectorAll((className)))
-    }
-
-    /**
-    * 遍历后，对其DOM对象进行操作
-    * @params arr  DOM数组
-    * @params show 是否展示
-    */
-    mapElement = (arr, show = 'hidden') => {
-        arr.map(item => item.style.visibility = show)
+        let { status,  handleHeaderButton} = this.props
+        handleHeaderButton(!status)
     }
 
     render() {
@@ -100,4 +63,15 @@ function HeaderRight() {
     )
 }
 
-export default Header
+
+let mapStateToProps = state => {
+    let { layout } = state 
+    return {
+        status: layout.status
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    { handleHeaderButton }
+)(Header) 
