@@ -1,4 +1,6 @@
 .content{
     background-color: #eee;
     height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 90px;
 }

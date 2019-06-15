@@ -3,6 +3,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     height: 100%;
+    overflow: hidden;
 }
 
 .layout .main{
